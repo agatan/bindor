@@ -11,6 +11,13 @@ import (
 	"github.com/pkg/errors"
 )
 
+const usage = `Usage: bindor COMMAND [arg...]
+
+COMMAND:
+	build [PACKAGES...]    Build vendored packages
+	exec [args...]         Execute a command with vendored binaries
+`
+
 func main() {
 	status, err := run(os.Args)
 	if err != nil {
@@ -21,7 +28,8 @@ func main() {
 
 func run(args []string) (int, error) {
 	if len(args) < 2 {
-		return 1, errors.New("no package name given")
+		fmt.Println(usage)
+		return 1, nil
 	}
 	switch args[1] {
 	case "build":
@@ -29,7 +37,8 @@ func run(args []string) (int, error) {
 	case "exec":
 		return execute(args[2:])
 	default:
-		return execute(args[1:])
+		fmt.Println(usage)
+		return 1, nil
 	}
 }
 

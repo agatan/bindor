@@ -74,7 +74,7 @@ func execute(args []string) (int, error) {
 	if err != nil {
 		return 1, errors.Wrap(err, "failed to get working directory")
 	}
-	if err := os.Setenv("PATH", fmt.Sprintf("%s:%s", filepath.Join(pwd, ".bindor", "bin"), os.Getenv("PATH"))); err != nil {
+	if err := os.Setenv("PATH", fmt.Sprintf("%s:%s", filepath.Join(pwd, ".bindor"), os.Getenv("PATH"))); err != nil {
 		return 1, errors.Wrap(err, "failed to set PATH environment")
 	}
 	cmd := exec.Command(args[0], args[1:]...)
